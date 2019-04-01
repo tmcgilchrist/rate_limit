@@ -38,3 +38,36 @@ There are two main concerns within the code:
 
 We want to clearly separate these two, further we _should_ provide a reasonable level of
 configuration for things like time periods as arguments to our module.
+
+Rate limits are divided up into intervals during which time a particular IP cannot exceed
+a particular rate. Similar to how *twitter* API works.
+
+I'm using the OTP behaviours in Elixir to build a supervision tree and to get async timeout events
+for calculating intervals. This lets me separate out the logic for running multiple RateLimit scopes.
+
+
+## Improvements
+
+ * more thorough testing setup using PropEr
+ * add dialyser contract types
+ * metrics and logging for when clients get rate limited
+
+## Demo
+
+``` shell
+# Startup a shell, this will also start the RateLimit application
+> iex -S mix
+
+# Setup a rate limit on :my_api
+> RateLimit.setup(:my_api, 2, :requests_per_minute)
+
+> RateLimit.check(:my_api, "127.0.0.1")
+{:ok, 1, 43955}
+
+> RateLimit.check(:my_api, "127.0.0.1")
+{:ok, 0, 42844}
+
+> RateLimit.check(:my_api, "127.0.0.1")
+{:rate_exceeded, 0, 41916}
+
+```
