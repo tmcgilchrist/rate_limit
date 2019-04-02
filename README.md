@@ -61,6 +61,7 @@ for calculating intervals. This lets me separate out the logic for running multi
 # Setup a rate limit on :my_api
 > RateLimit.setup(:my_api, 2, :requests_per_minute)
 
+# Check manually via Elixir API
 > RateLimit.check(:my_api, "127.0.0.1")
 {:ok, 1, 43955}
 
@@ -72,4 +73,8 @@ for calculating intervals. This lets me separate out the logic for running multi
 
 > RateLimitHttp.response({:rate_exceeded, 0, 41916}, 2)
 %{body: "Rate limit exceeded. Try again in 2 seconds.", code: 429}
+
+# Try via curl
+curl http://localhost:8080/ -v
+
 ```

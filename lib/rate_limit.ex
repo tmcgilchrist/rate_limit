@@ -25,6 +25,13 @@ defmodule RateLimit do
   end
 
   @doc """
+  Return the rate_limit for scope
+  """
+  def limit(scope) do
+    RateLimitETS.limit(scope)
+  end
+
+  @doc """
   GenServer start_link callback
   """
   def start_link([scope, limit, period]) do

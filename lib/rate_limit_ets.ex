@@ -44,6 +44,11 @@ defmodule RateLimitETS do
     :ok
   end
 
+  def limit(scope) do
+    [{_, _, limit, period, _}] = :ets.lookup(state_table(), scope)
+    limit
+  end
+
   def update_counter(scope, key) do
     case :ets.lookup(state_table(), scope) do
       [{_scope, table_id, limit, period, previous_reset}] ->
