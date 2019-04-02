@@ -71,5 +71,5 @@ for calculating intervals. This lets me separate out the logic for running multi
 {:rate_exceeded, 0, 41916}
 
 > RateLimitHttp.response({:rate_exceeded, 0, 41916}, 2)
-
+%{body: "Rate limit exceeded. Try again in 2 seconds.", code: 429}
 ```
