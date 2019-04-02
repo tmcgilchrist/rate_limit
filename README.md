@@ -70,4 +70,6 @@ for calculating intervals. This lets me separate out the logic for running multi
 > RateLimit.check(:my_api, "127.0.0.1")
 {:rate_exceeded, 0, 41916}
 
+> RateLimitHttp.response({:rate_exceeded, 0, 41916}, 2)
+
 ```
